@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Calorías</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input, select {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        p {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculadora de Calorías</h1>
+        <input type="number" id="peso" placeholder="Peso (kg)" required>
+        <input type="number" id="altura" placeholder="Altura (cm)" required>
+        <input type="number" id="edad" placeholder="Edad" required>
+        <select id="sexo" required>
+            <option value="">Sexo</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+        </select>
+        <select id="actividad" required>
+            <option value="1.2">Sedentario</option>
+            <option value="1.375">Ligera actividad</option>
+            <option value="1.55">Actividad moderada</option>
+            <option value="1.725">Actividad intensa</option>
+            <option value="1.9">Muy intensa</option>
+        </select>
+        <button onclick="calcularCalorias()">Calcular Calorías</button>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        function calcularCalorias() {
+            var peso = document.getElementById('peso').value;
+            var altura = document.getElementById('altura').value;
+            var edad = document.getElementById('edad').value;
+            var sexo = document.getElementById('sexo').value;
+            var actividad = document.getElementById('actividad').value;
+
+            if(peso && altura && edad && sexo && actividad) {
+                var tmb;
+                if (sexo === "masculino") {
+                    tmb = 10 * peso + 6.25 * altura - 5 * edad + 5;
+                } else if (sexo === "femenino") {
+                    tmb = 10 * peso + 6.25 * altura - 5 * edad - 161;
+                }
+
+                var calorias = tmb * actividad;
+                document.getElementById('resultado').innerText = 'Tu necesidad calórica diaria es: ' + calorias.toFixed(2) + ' calorías';
+            } else {
+                document.getElementById('resultado').innerText = 'Por favor, completa todos los campos.';
+            }
+        }
+    </script>
+</body>
+</html>
